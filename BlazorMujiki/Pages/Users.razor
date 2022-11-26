@@ -1,0 +1,41 @@
+﻿
+@using BlazorMujiki.Data
+@inject SingletonService singleton
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+@if (Units == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Lvl</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in Units)
+            {
+                <tr>
+                    <td>@forecast.Name</td>
+                    <td>@forecast.GetType().Name</td>
+                    <td>@forecast.Level</td>
+                    <td><button @onclick="() => Units.Remove(forecast)">Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    [Parameter]
+    public List<Unit> Units { get; set; }
+
+}
